@@ -8,11 +8,13 @@
     "test": "mocha --bail server/spec"
   },
   "devDependencies": {
+    "chai": "^1.9.0",
     "mocha": "^1.21.4",
-    "request": "^2.34.0",
-    "chai": "^1.9.0"
+    "request": "^2.48.0",
+    "requests": "0.0.1"
   },
   "dependencies": {
+    "express": "^4.10.2",
     "querystring": "^0.2.0",
     "underscore": "^1.7.0"
   }

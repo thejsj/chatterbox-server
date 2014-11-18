@@ -18,6 +18,9 @@ var Messages = function (filename) {
         }.bind(this));
       }.bind(this));
     }
+    if (this.getAllMessages().length === 0) {
+      this.addMessageToRoom('test', {username: 'test', text: 'text'});
+    }
   }.bind(this));
 };
 
