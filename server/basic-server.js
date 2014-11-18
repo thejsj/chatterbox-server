@@ -4,6 +4,9 @@ var express = require('express');
 var app = express();
 var handleRequest = require('./request-handler');
 
+// Port
+var port = process.env.PORT || 1337;
+
 // Serve our API requests
 app.get('/classes/*', handleRequest.requestHandler);
 app.post('/classes/*', handleRequest.requestHandler);
@@ -20,5 +23,5 @@ app.get('*', function (req, res) {
   res.sendStatus(404);
 });
 
-console.log(process.env.PORT || 1337);
-app.listen(process.env.PORT || 1337);
+console.log(port);
+app.listen(port);

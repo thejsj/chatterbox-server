@@ -6,27 +6,29 @@ var Messages = function (filename) {
   this._counter = 0;
   this._filename = filename;
   this._messages = {};
-  try {
-    fs.readFile(this._filename, 'utf-8', function (err, data) {
-      if (err) throw err;
-      try {
-        var jsonData = JSON.parse(data);
-        this._counter += jsonData.counter;
-        if (jsonData.messages !== null) {
-          _.each(jsonData.messages, function (roomMessages, roomName) {
-            this._messages[roomName] = this._messages[roomName] || [];
-            _.each(roomMessages, function (message) {
-              this._messages[roomName].push(message);
+  fs.exists(this._filename, function (exists) {
+    if (exists) {
+      fs.readFile(this._filename, 'utf-8', function (err, data) {
+        if (err) throw err;
+        try {
+          var jsonData = JSON.parse(data);
+          this._counter += jsonData.counter;
+          if (jsonData.messages !== null) {
+            _.each(jsonData.messages, function (roomMessages, roomName) {
+              this._messages[roomName] = this._messages[roomName] || [];
+              _.each(roomMessages, function (message) {
+                this._messages[roomName].push(message);
+              }.bind(this));
             }.bind(this));
-          }.bind(this));
-        }
+          }
 
-      } catch(err) {}
-      if (this.getAllMessages().length === 0) {
-        this.addMessageToRoom('test', {username: 'test', text: 'text'});
-      }
-    }.bind(this));
-  } catch(err) {}
+        } catch(err) {}
+        if (this.getAllMessages().length === 0) {
+          this.addMessageToRoom('test', {username: 'test', text: 'text'});
+        }
+      }.bind(this));
+    }
+  });
 };
 
 Messages.prototype.getAllMessages = function(){
