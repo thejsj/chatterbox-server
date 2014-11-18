@@ -1,1 +1,2 @@
-var serverDeployed = require('/server/basic-server');
+/*jshint node:true */
+require('./server/basic-server');

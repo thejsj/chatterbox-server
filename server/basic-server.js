@@ -20,4 +20,4 @@ app.get('*', function (req, res) {
   res.sendStatus(404);
 });
 
-app.listen(3000);
+app.listen(process.env.PORT || 1337);
