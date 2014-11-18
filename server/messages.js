@@ -6,22 +6,27 @@ var Messages = function (filename) {
   this._counter = 0;
   this._filename = filename;
   this._messages = {};
-  fs.readFile(this._filename, 'utf-8', function (err, data) {
-    if (err) throw err;
-    var jsonData = JSON.parse(data);
-    this._counter += jsonData.counter;
-    if (jsonData.messages !== null) {
-      _.each(jsonData.messages, function (roomMessages, roomName) {
-        this._messages[roomName] = this._messages[roomName] || [];
-        _.each(roomMessages, function (message) {
-          this._messages[roomName].push(message);
-        }.bind(this));
-      }.bind(this));
-    }
-    if (this.getAllMessages().length === 0) {
-      this.addMessageToRoom('test', {username: 'test', text: 'text'});
-    }
-  }.bind(this));
+  try {
+    fs.readFile(this._filename, 'utf-8', function (err, data) {
+      if (err) throw err;
+      try {
+        var jsonData = JSON.parse(data);
+        this._counter += jsonData.counter;
+        if (jsonData.messages !== null) {
+          _.each(jsonData.messages, function (roomMessages, roomName) {
+            this._messages[roomName] = this._messages[roomName] || [];
+            _.each(roomMessages, function (message) {
+              this._messages[roomName].push(message);
+            }.bind(this));
+          }.bind(this));
+        }
+
+      } catch(err) {}
+      if (this.getAllMessages().length === 0) {
+        this.addMessageToRoom('test', {username: 'test', text: 'text'});
+      }
+    }.bind(this));
+  } catch(err) {}
 };
 
 Messages.prototype.getAllMessages = function(){
@@ -51,7 +56,8 @@ Messages.prototype.addMessageToRoom = function (roomName, singleMessage) {
     objectId: this._counter++,
     createdAt: new Date().getTime(),
     username: singleMessage.username,
-    text: singleMessage.text
+    text: singleMessage.text,
+    roomname: singleMessage.roomname
   });
   fs.writeFile(this._filename, this.getJSON(), function (err) {
     if (err) throw err;
