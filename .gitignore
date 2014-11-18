@@ -21,6 +21,7 @@ lib-cov
 *.out
 *.pid
 *.gz
+_messages.json
 
 pids
 logs

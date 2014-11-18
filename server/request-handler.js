@@ -1,15 +1,8 @@
 /*jshint node:true */
 
-var _ = require('underscore');
+var Messages = require('./messages');
 
-var messages = {
-  hello: [{
-    message: 'Test message',
-    username: 'thejsj',
-    objectId: 0,
-    roomName: 'thejsj'
-  }],
-};
+var messages = new Messages('./_messages.json');
 
 var returnResponse = function(response, statusCode, roomName){
   var headers = {
@@ -20,17 +13,9 @@ var returnResponse = function(response, statusCode, roomName){
     'Content-Type': 'application/json'
   };
   if (statusCode >= 200 && statusCode < 300) {
-    var _messages;
-    if (roomName === undefined || roomName === '') {
-      _messages = _.reduce(messages, function(memo, roomMessages){
-        return memo.concat(roomMessages);
-      }, []);
-    } else {
-      _messages = messages[roomName];
-    }
     response.writeHead(statusCode, headers);
     response.end(JSON.stringify({
-      results: _messages || []
+      results: messages.getMessages(roomName)
     }));
     return true;
   }
@@ -51,11 +36,10 @@ var requestHandlerPOST = function (request, response, roomName) {
     }
   });
   request.on('end', function () {
-    var postData = JSON.parse(body);
-    messages[roomName] = messages[roomName] || [];
-    messages[roomName].push(postData);
+    messages.addMessageToRoom(roomName, JSON.parse(body));
     returnResponse(response, 201);
   });
+  return true;
 };
 
 var requestHandler = function(request, response) {
