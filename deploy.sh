@@ -119,6 +119,9 @@ fi
 
 # 4. Install Bower Components
 bower install
+bower install jquery
+bower install underscore
+ls client/bower_components
 
 ##################################################################################################################################
 
