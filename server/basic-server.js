@@ -20,4 +20,5 @@ app.get('*', function (req, res) {
   res.sendStatus(404);
 });
 
+console.log(process.env.PORT || 1337);
 app.listen(process.env.PORT || 1337);
