@@ -1,6 +1,15 @@
-/*global module:true */
+/*jshint node:true */
 
-var messages = [];
+var _ = require('underscore');
+
+var messages = {
+  hello: [{
+    message: 'Test message',
+    username: 'thejsj',
+    objectId: 0,
+    roomName: 'thejsj'
+  }],
+};
 
 var returnResponse = function(response, statusCode, roomName){
   var headers = {
@@ -10,10 +19,18 @@ var returnResponse = function(response, statusCode, roomName){
     'access-control-max-age': 10, // Seconds.
     'Content-Type': 'application/json'
   };
-  if (statusCode >=200 && statusCode < 300) {
+  if (statusCode >= 200 && statusCode < 300) {
+    var _messages;
+    if (roomName === undefined || roomName === '') {
+      _messages = _.reduce(messages, function(memo, roomMessages){
+        return memo.concat(roomMessages);
+      }, []);
+    } else {
+      _messages = messages[roomName];
+    }
     response.writeHead(statusCode, headers);
     response.end(JSON.stringify({
-      results: messages[roomName] || []
+      results: _messages || []
     }));
     return true;
   }
@@ -47,7 +64,7 @@ var requestHandler = function(request, response) {
     if (request.method === 'POST') {
       return requestHandlerPOST(request, response, requestUrl[2]);
     }
-    if (request.method === 'GET') {
+    if (request.method === 'GET' || request.method === 'OPTIONS') {
       return returnResponse(response, 200, requestUrl[2]);
     }
   }
