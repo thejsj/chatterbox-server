@@ -118,6 +118,7 @@ if [ -e "$DEPLOYMENT_TARGET/package.json" ]; then
 fi
 
 # 4. Install Bower Components
+npm install -g bower
 bower install
 bower install jquery
 bower install underscore
