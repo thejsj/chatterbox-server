@@ -117,13 +117,6 @@ if [ -e "$DEPLOYMENT_TARGET/package.json" ]; then
   cd - > /dev/null
 fi
 
-# 4. Install Bower Components
-npm install -g bower
-bower install
-bower install jquery
-bower install underscore
-ls client/bower_components
-
 ##################################################################################################################################
 
 # Post deployment stub
