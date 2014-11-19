@@ -216,6 +216,10 @@ $(function() {
       }
     },
     handleSubmit: function(evt) {
+      // Stop the form from submitting
+      evt.preventDefault();
+      evt.stopPropagation();
+      console.log('Prevent Form Submission');
       if (app.roomname == false || app.roomname === '__all__') {
         roomname = 'lobby'
       }
@@ -226,9 +230,6 @@ $(function() {
       };
 
       app.send(message);
-
-      // Stop the form from submitting
-      evt.preventDefault();
     },
     startSpinner: function(){
       $('.spinner img').show();
