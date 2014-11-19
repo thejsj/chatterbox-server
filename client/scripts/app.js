@@ -46,7 +46,6 @@ $(function() {
         data: JSON.stringify(data),
         contentType: 'application/json',
         success: function (data) {
-          console.log('chatterbox: Message sent');
           // Trigger a fetch to update the messages, pass true to animate
           app.fetch();
         },
@@ -62,8 +61,6 @@ $(function() {
         contentType: 'application/json',
         // data: { order: '-createdAt'},
         success: function(data) {
-          console.log('Fetch: success - ', app.roomname);
-
           // Don't bother if we have nothing to work with
           if (!data.results || !data.results.length) { return; }
 
@@ -89,7 +86,6 @@ $(function() {
     },
     populateMessages: function(results, animate) {
       // Clear existing messages
-      console.log('Populate messages');
       app.clearMessages();
       app.stopSpinner();
       if (Array.isArray(results)) {
@@ -102,8 +98,6 @@ $(function() {
             return message.roomname === app.roomname;
           });
         }
-        console.log('messagesInRoom');
-        console.log(messagesInRoom.length);
         messagesInRoom.forEach(app.addMessage);
       }
 
@@ -119,7 +113,6 @@ $(function() {
       }
     },
     populateRooms: function(results) {
-      console.log('populatedRooms');
       app.$roomSelect.html('<option value="__newRoom">New room...</option><option value="__all__" selected>All Rooms</option></select>');
 
       if (results) {
@@ -175,8 +168,6 @@ $(function() {
       var username = $(evt.currentTarget).attr('data-username');
 
       if (username !== undefined) {
-        console.log('chatterbox: Adding %s as a friend', username);
-
         // Store as a friend
         app.friends[username] = true;
 
@@ -187,7 +178,6 @@ $(function() {
       }
     },
     saveRoom: function(evt) {
-      console.log('saveRoom');
       var selectIndex = app.$roomSelect.prop('selectedIndex');
       // New room is always the first option
       if (selectIndex === 0) {
