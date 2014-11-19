@@ -219,11 +219,9 @@ $(function() {
       // Stop the form from submitting
       evt.preventDefault();
       evt.stopPropagation();
-      console.log('Prevent Form Submission');
-      if (app.roomname == false || app.roomname === '__all__') {
-        roomname = 'lobby'
-      } else {
-        roomname = app.roomname;
+      var roomname = app.roomname;
+      if (roomname == false || roomname === '__all__') {
+        roomname = 'lobby';
       }
       var message = {
         username: app.username,
