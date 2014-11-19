@@ -24,11 +24,13 @@ var Messages = function (filename) {
 
         } catch(err) {}
         if (this.getAllMessages().length === 0) {
-          this.addMessageToRoom('test', {username: 'test', text: 'text'});
+          this.addMessageToRoom('test', {username: 'test', text: 'text', roomname: 'test'});
         }
       }.bind(this));
+    } else {
+      this.addMessageToRoom('test', {username: 'test', text: 'text', roomname: 'test'});
     }
-  });
+  }.bind(this));
 };
 
 Messages.prototype.getAllMessages = function(){
