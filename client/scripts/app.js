@@ -222,6 +222,8 @@ $(function() {
       console.log('Prevent Form Submission');
       if (app.roomname == false || app.roomname === '__all__') {
         roomname = 'lobby'
+      } else {
+        roomname = app.roomname;
       }
       var message = {
         username: app.username,
