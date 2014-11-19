@@ -1,10 +1,9 @@
 /*jshint node:true */
 
 var Messages = require('./messages');
-
 var messages = new Messages('./_messages.json');
 
-var returnResponse = function(response, statusCode, roomName){
+var returnResponse = function (response, statusCode, roomName) {
   var headers = {
     'access-control-allow-origin': '*',
     'access-control-allow-methods': 'GET, POST, PUT, DELETE, OPTIONS',
@@ -42,7 +41,7 @@ var requestHandlerPOST = function (request, response, roomName) {
   return true;
 };
 
-var requestHandler = function(request, response) {
+var requestHandler = function (request, response) {
   var requestUrl = request.url.split('/');
   if (requestUrl[1] === 'classes') {
     if (request.method === 'POST') {

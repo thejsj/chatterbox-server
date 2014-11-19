@@ -21,32 +21,39 @@ var Messages = function (filename) {
               }.bind(this));
             }.bind(this));
           }
-
-        } catch(err) {}
+        } catch (err) {}
         if (this.getAllMessages().length === 0) {
-          this.addMessageToRoom('test', {username: 'test', text: 'text', roomname: 'test'});
+          this.addMessageToRoom('test', {
+            username: 'test',
+            text: 'text',
+            roomname: 'test'
+          });
         }
       }.bind(this));
     } else {
-      this.addMessageToRoom('test', {username: 'test', text: 'text', roomname: 'test'});
+      this.addMessageToRoom('test', {
+        username: 'test',
+        text: 'text',
+        roomname: 'test'
+      });
     }
   }.bind(this));
 };
 
-Messages.prototype.getAllMessages = function(){
-  return _.reduce(this._messages, function(memo, roomMessages){
+Messages.prototype.getAllMessages = function () {
+  return _.reduce(this._messages, function (memo, roomMessages) {
     return memo.concat(roomMessages);
   }, []);
 };
 
 Messages.prototype.getMessages = function (roomName) {
-  if (roomName !== undefined && roomName !== '' ) {
+  if (roomName !== undefined && roomName !== '') {
     return this.getMessagesFromRoom(roomName);
   }
   return this.getAllMessages();
 };
 
-Messages.prototype.getMessagesFromRoom = function (roomName){
+Messages.prototype.getMessagesFromRoom = function (roomName) {
   if (!(roomName in this._messages)) {
     return [];
   }
@@ -69,8 +76,11 @@ Messages.prototype.addMessageToRoom = function (roomName, singleMessage) {
   return this._messages;
 };
 
-Messages.prototype.getJSON = function(){
-  return JSON.stringify({counter: this._counter, messages: this._messages});
+Messages.prototype.getJSON = function () {
+  return JSON.stringify({
+    counter: this._counter,
+    messages: this._messages
+  });
 };
 
 module.exports = Messages;

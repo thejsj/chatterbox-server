@@ -21,9 +21,7 @@ app.get('/', function (req, res) {
 
 // Server a 404 for files not found
 app.get('*', function (req, res) {
-  console.log('Log 404');
   res.sendStatus(404);
 });
 
-console.log(port);
 app.listen(port);
