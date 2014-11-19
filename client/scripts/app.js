@@ -41,7 +41,7 @@ $(function() {
 
       // POST the message to the server
       $.ajax({
-        url: app.server,
+        url: app.server + '/' + app.roomname,
         type: 'POST',
         data: JSON.stringify(data),
         contentType: 'application/json',
