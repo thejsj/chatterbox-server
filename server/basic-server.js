@@ -8,7 +8,9 @@ var handleRequest = require('./request-handler');
 var port = process.env.PORT || 1337;
 
 // Serve our API requests
+app.get('/classes', handleRequest.requestHandler);
 app.get('/classes/*', handleRequest.requestHandler);
+app.post('/classes', handleRequest.requestHandler);
 app.post('/classes/*', handleRequest.requestHandler);
 
 // Serve Static Files
